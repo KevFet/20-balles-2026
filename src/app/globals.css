@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+:root {
+  --background: #030303;
+  --foreground: #ffffff;
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --accent-primary: #8b5cf6;
+  --accent-secondary: #ec4899;
+}
+
+@layer base {
+  body {
+    @apply bg-zinc-950 text-white antialiased overflow-x-hidden selection:bg-purple-500/30;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02";
+  }
+
+  /* 2026 Mesh Gradient Background */
+  .mesh-gradient {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: #030303;
+    overflow: hidden;
+  }
+
+  .mesh-gradient::before {
+    content: "";
+    position: absolute;
+    width: 150%;
+    height: 150%;
+    top: -25%;
+    left: -25%;
+    background-image:
+      radial-gradient(at 10% 10%, rgba(139, 92, 246, 0.15) 0px, transparent 50%),
+      radial-gradient(at 90% 10%, rgba(236, 72, 153, 0.15) 0px, transparent 50%),
+      radial-gradient(at 90% 90%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
+      radial-gradient(at 10% 90%, rgba(16, 185, 129, 0.15) 0px, transparent 50%),
+      radial-gradient(at 50% 50%, rgba(139, 92, 246, 0.1) 0px, transparent 50%);
+    filter: blur(80px);
+    animation: mesh-rotate 30s linear infinite;
+  }
+}
+
+@keyframes mesh-rotate {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+
+  33% {
+    transform: rotate(120deg) scale(1.1);
+  }
+
+  66% {
+    transform: rotate(240deg) scale(0.9);
+  }
+
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/[0.03] backdrop-blur-[40px] border border-white/10 rounded-[2rem];
+    box-shadow:
+      inset 0 0 0 0.5px rgba(255, 255, 255, 0.1),
+      0 20px 40px -15px rgba(0, 0, 0, 0.5);
+  }
+
+  .glass-input {
+    @apply bg-white/[0.05] border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-purple-500/50 transition-all duration-300 backdrop-blur-md;
+  }
+
+  .glass-button {
+    @apply relative px-8 py-4 rounded-2xl font-bold transition-all duration-500 text-white overflow-hidden;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    border: 0.5px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+  }
+
+  .glass-button::after {
+    content: "";
+    @apply absolute inset-0 opacity-0 transition-opacity duration-500;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    z-index: -1;
+  }
+
+  .glass-button:hover::after {
+    @apply opacity-100;
+  }
+
+  .glass-button:hover {
+    @apply border-transparent scale-[1.02];
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.3);
+  }
+
+  .glass-button:active {
+    @apply scale-95;
+  }
+
+  .bento-grid {
+    @apply grid gap-4 grid-cols-4 grid-rows-2;
+  }
+
+  .bento-item {
+    @apply bg-white/[0.03] backdrop-blur-[40px] border border-white/10 rounded-[2rem] p-6 flex flex-col justify-between;
+    box-shadow:
+      inset 0 0 0 0.5px rgba(255, 255, 255, 0.1),
+      0 20px 40px -15px rgba(0, 0, 0, 0.5);
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-br from-white via-white/90 to-white/50;
+  }
+
+  .text-accent {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500;
+  }
+}
+
+/* Hide scrollbar */
+::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
