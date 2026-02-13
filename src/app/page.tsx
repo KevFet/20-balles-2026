@@ -7,7 +7,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { supabase } from '@/lib/supabase';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { RulesModal } from '@/components/RulesModal';
-import { Sparkles, Users, Info, Globe, Loader2, ArrowRight } from 'lucide-react';
+import { Sparkles, Users, Info, Globe, Loader2, ArrowRight, LayoutGrid } from 'lucide-react';
 import { Language } from '@/types/game';
 
 export default function Home() {
@@ -108,6 +108,16 @@ export default function Home() {
 
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center p-6 sm:p-12 overflow-hidden">
+      {/* Home Button */}
+      <div className="fixed top-8 left-8 z-40">
+        <button
+          onClick={() => window.location.href = 'https://games-platform-hub.vercel.app/'}
+          className="p-4 glass-card rounded-2xl flex items-center gap-2 hover:bg-white/10 transition-all group"
+          title="Retour au menu"
+        >
+          <LayoutGrid size={20} className="text-blue-400 group-hover:text-blue-300 transition-colors" />
+        </button>
+      </div>
 
       {/* Settings / Floating Menu */}
       <div className="fixed top-8 right-8 flex gap-4 z-40">
